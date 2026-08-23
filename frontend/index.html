@@ -1,33 +1,57 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Blockchain</title>
+    <title>Electronics</title>
     <style>
         body {
-            margin: 0;
-            font-family: Arial;
+            background: #050b18;
             color: white;
             text-align: center;
-            background: url("computer.jpg") center/cover fixed;
+            font-family: Arial;
+            overflow: hidden;
+        }
+
+        h1 {
+            color: #00eaff;
+        }
+
+        .chip {
+            position: absolute;
+            width: 60px;
+            height: 60px;
+            background: #222;
+            border: 3px solid #00eaff;
+            border-radius: 10px;
+            animation: move 6s linear infinite;
+        }
+
+        @keyframes move {
+            from { left: -80px; top: 20%; }
+            to { left: 100%; top: 70%; }
         }
 
         .box {
-            background: rgba(0, 0, 0, 0.75);
-            padding: 40px;
             margin: 100px auto;
+            padding: 30px;
             width: 60%;
+            background: rgba(0,0,0,0.7);
             border-radius: 15px;
         }
     </style>
 </head>
+
 <body>
 
-    <div class="box">
-        <h1>🔗 Blockchain Technology</h1>
-        <p>Blockchain is a secure and decentralized technology used to store digital information.</p>
+    <div class="chip">⚡</div>
 
-        <h2>Key Features</h2>
-        <p>🔒 Security | 🌐 Decentralization | 📋 Transparency</p>
+    <div class="box">
+        <h1>🔌 Electronics</h1>
+        <p>
+            Electronics is the branch of engineering that deals with
+            circuits, semiconductors, microchips and electronic devices.
+        </p>
+        <h2>Components</h2>
+        <p>🔋 Resistors | 💡 LEDs | ⚙️ Transistors | 🧠 Microchips</p>
     </div>
 
 </body>

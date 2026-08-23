@@ -1,58 +1,2175 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Electronics</title>
-    <style>
-        body {
-            background: #050b18;
-            color: white;
-            text-align: center;
-            font-family: Arial;
-            overflow: hidden;
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="VÉRONA — Modern fashion for everyday confidence.">
+<title>VÉRONA — Modern Fashion</title>
 
-        h1 {
-            color: #00eaff;
-        }
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
 
-        .chip {
-            position: absolute;
-            width: 60px;
-            height: 60px;
-            background: #222;
-            border: 3px solid #00eaff;
-            border-radius: 10px;
-            animation: move 6s linear infinite;
-        }
+<style>
+/* =========================
+   RESET & VARIABLES
+========================= */
+:root {
+    --black: #111111;
+    --dark: #191919;
+    --cream: #f7f3ed;
+    --white: #ffffff;
+    --beige: #e9dfd2;
+    --brown: #80644d;
+    --muted: #777;
+    --border: #e5e1dc;
+    --accent: #b66b45;
+    --green: #426b58;
+    --shadow: 0 18px 45px rgba(0,0,0,.10);
+    --radius: 18px;
+    --serif: "Playfair Display", Georgia, serif;
+    --sans: "DM Sans", Arial, sans-serif;
+}
 
-        @keyframes move {
-            from { left: -80px; top: 20%; }
-            to { left: 100%; top: 70%; }
-        }
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
 
-        .box {
-            margin: 100px auto;
-            padding: 30px;
-            width: 60%;
-            background: rgba(0,0,0,0.7);
-            border-radius: 15px;
-        }
-    </style>
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: var(--sans);
+    color: var(--black);
+    background: var(--white);
+    overflow-x: hidden;
+}
+
+button,
+input,
+select {
+    font: inherit;
+}
+
+button {
+    cursor: pointer;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+/* =========================
+   LOADER
+========================= */
+.loader {
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    background: var(--black);
+    display: grid;
+    place-items: center;
+    color: white;
+    transition: .7s ease;
+}
+
+.loader.hide {
+    opacity: 0;
+    visibility: hidden;
+}
+
+.loader-inner {
+    text-align: center;
+}
+
+.loader-logo {
+    font-family: var(--serif);
+    font-size: 48px;
+    letter-spacing: 8px;
+}
+
+.loader-line {
+    width: 180px;
+    height: 1px;
+    background: #555;
+    margin: 20px auto;
+    overflow: hidden;
+}
+
+.loader-line::after {
+    content: "";
+    display: block;
+    width: 100%;
+    height: 100%;
+    background: white;
+    transform: translateX(-100%);
+    animation: loading 1.4s infinite;
+}
+
+@keyframes loading {
+    to { transform: translateX(100%); }
+}
+
+/* =========================
+   ANNOUNCEMENT
+========================= */
+.announcement {
+    height: 36px;
+    background: var(--black);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+}
+
+/* =========================
+   NAVBAR
+========================= */
+header {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    background: rgba(255,255,255,.94);
+    backdrop-filter: blur(16px);
+    border-bottom: 1px solid rgba(0,0,0,.07);
+}
+
+.navbar {
+    max-width: 1400px;
+    margin: auto;
+    height: 76px;
+    padding: 0 30px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 30px;
+}
+
+.logo {
+    font-family: var(--serif);
+    font-size: 27px;
+    letter-spacing: 5px;
+    font-weight: 700;
+}
+
+.nav-links {
+    display: flex;
+    gap: 34px;
+    list-style: none;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.nav-links a {
+    position: relative;
+}
+
+.nav-links a::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -8px;
+    width: 0;
+    height: 1px;
+    background: var(--black);
+    transition: .3s;
+}
+
+.nav-links a:hover::after {
+    width: 100%;
+}
+
+.nav-actions {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.icon-btn {
+    border: 0;
+    background: transparent;
+    width: 40px;
+    height: 40px;
+    display: grid;
+    place-items: center;
+    border-radius: 50%;
+    position: relative;
+    transition: .25s;
+}
+
+.icon-btn:hover {
+    background: var(--cream);
+}
+
+.icon-btn svg {
+    width: 19px;
+    height: 19px;
+}
+
+.cart-count {
+    position: absolute;
+    right: 2px;
+    top: 0;
+    width: 17px;
+    height: 17px;
+    background: var(--black);
+    color: white;
+    border-radius: 50%;
+    font-size: 9px;
+    display: grid;
+    place-items: center;
+}
+
+.menu-btn {
+    display: none;
+}
+
+/* =========================
+   HERO
+========================= */
+.hero {
+    min-height: 720px;
+    position: relative;
+    overflow: hidden;
+    background: #ded3c5;
+    display: flex;
+    align-items: center;
+}
+
+.hero-bg {
+    position: absolute;
+    inset: 0;
+    background:
+        linear-gradient(90deg, rgba(20,15,12,.72), rgba(20,15,12,.10)),
+        url("https://images.unsplash.com/photo-1483985988355-763728e1935b?auto=format&fit=crop&w=2000&q=85")
+        center/cover;
+    transform: scale(1.03);
+    animation: heroZoom 10s ease-in-out infinite alternate;
+}
+
+@keyframes heroZoom {
+    from { transform: scale(1.03); }
+    to { transform: scale(1.09); }
+}
+
+.hero-content {
+    position: relative;
+    z-index: 2;
+    color: white;
+    max-width: 1400px;
+    width: 100%;
+    margin: auto;
+    padding: 80px 30px;
+}
+
+.hero-eyebrow {
+    font-size: 12px;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    margin-bottom: 22px;
+    animation: fadeUp .8s .2s both;
+}
+
+.hero h1 {
+    font-family: var(--serif);
+    font-size: clamp(60px, 8vw, 112px);
+    line-height: .91;
+    max-width: 720px;
+    font-weight: 500;
+    animation: fadeUp .8s .35s both;
+}
+
+.hero p {
+    max-width: 480px;
+    margin: 28px 0;
+    font-size: 16px;
+    line-height: 1.7;
+    color: #eee;
+    animation: fadeUp .8s .5s both;
+}
+
+.hero-buttons {
+    display: flex;
+    gap: 12px;
+    animation: fadeUp .8s .65s both;
+}
+
+.btn {
+    border: 1px solid transparent;
+    padding: 15px 28px;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 1.2px;
+    text-transform: uppercase;
+    transition: .3s;
+}
+
+.btn-dark {
+    background: white;
+    color: var(--black);
+}
+
+.btn-dark:hover {
+    background: var(--black);
+    color: white;
+}
+
+.btn-outline {
+    border-color: white;
+    color: white;
+    background: transparent;
+}
+
+.btn-outline:hover {
+    background: white;
+    color: var(--black);
+}
+
+@keyframes fadeUp {
+    from {
+        opacity: 0;
+        transform: translateY(25px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* =========================
+   FEATURES
+========================= */
+.features {
+    border-bottom: 1px solid var(--border);
+}
+
+.features-inner {
+    max-width: 1300px;
+    margin: auto;
+    min-height: 100px;
+    display: grid;
+    grid-template-columns: repeat(4,1fr);
+}
+
+.feature {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 14px;
+    padding: 20px;
+    border-right: 1px solid var(--border);
+}
+
+.feature:last-child {
+    border-right: 0;
+}
+
+.feature-icon {
+    width: 38px;
+    height: 38px;
+    border: 1px solid var(--border);
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+}
+
+.feature strong {
+    display: block;
+    font-size: 12px;
+}
+
+.feature span {
+    color: var(--muted);
+    font-size: 11px;
+}
+
+/* =========================
+   SECTION
+========================= */
+.section {
+    max-width: 1400px;
+    margin: auto;
+    padding: 100px 30px;
+}
+
+.section-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: end;
+    margin-bottom: 38px;
+}
+
+.section-kicker {
+    color: var(--accent);
+    font-size: 11px;
+    letter-spacing: 2px;
+    font-weight: 700;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+}
+
+.section-title {
+    font-family: var(--serif);
+    font-size: clamp(36px,5vw,58px);
+    font-weight: 500;
+}
+
+.section-link {
+    font-size: 12px;
+    font-weight: 700;
+    border-bottom: 1px solid;
+    padding-bottom: 5px;
+}
+
+/* =========================
+   CATEGORIES
+========================= */
+.categories {
+    display: grid;
+    grid-template-columns: 1.4fr 1fr 1fr;
+    gap: 15px;
+}
+
+.category {
+    height: 510px;
+    overflow: hidden;
+    position: relative;
+    border-radius: var(--radius);
+    background: #ddd;
+}
+
+.category img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform .7s cubic-bezier(.2,.8,.2,1);
+}
+
+.category:hover img {
+    transform: scale(1.07);
+}
+
+.category::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(transparent 40%,rgba(0,0,0,.65));
+}
+
+.category-info {
+    position: absolute;
+    z-index: 2;
+    left: 30px;
+    bottom: 28px;
+    color: white;
+}
+
+.category-info h3 {
+    font-family: var(--serif);
+    font-size: 34px;
+    margin-bottom: 10px;
+}
+
+.category-info a {
+    font-size: 11px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    border-bottom: 1px solid white;
+    padding-bottom: 4px;
+}
+
+/* =========================
+   PRODUCTS
+========================= */
+.shop-tools {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 25px;
+    gap: 15px;
+}
+
+.filters {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.filter-btn {
+    background: white;
+    border: 1px solid var(--border);
+    padding: 10px 18px;
+    border-radius: 30px;
+    font-size: 11px;
+    transition: .25s;
+}
+
+.filter-btn.active,
+.filter-btn:hover {
+    background: var(--black);
+    color: white;
+    border-color: var(--black);
+}
+
+.sort {
+    border: 1px solid var(--border);
+    background: white;
+    padding: 10px 14px;
+    font-size: 11px;
+}
+
+.products {
+    display: grid;
+    grid-template-columns: repeat(4,1fr);
+    gap: 20px;
+}
+
+.product {
+    position: relative;
+    min-width: 0;
+}
+
+.product-image {
+    position: relative;
+    overflow: hidden;
+    aspect-ratio: .78;
+    background: #f1eee9;
+    border-radius: 13px;
+}
+
+.product-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: opacity .35s, transform .6s;
+}
+
+.product-image .hover-img {
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+}
+
+.product:hover .main-img {
+    opacity: 0;
+}
+
+.product:hover .hover-img {
+    opacity: 1;
+}
+
+.product:hover .product-image img {
+    transform: scale(1.04);
+}
+
+.badge {
+    position: absolute;
+    z-index: 2;
+    top: 13px;
+    left: 13px;
+    background: white;
+    padding: 7px 10px;
+    font-size: 9px;
+    letter-spacing: 1px;
+    font-weight: 700;
+}
+
+.wish {
+    position: absolute;
+    z-index: 3;
+    top: 10px;
+    right: 10px;
+    width: 38px;
+    height: 38px;
+    border: 0;
+    background: rgba(255,255,255,.92);
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+}
+
+.wish.active {
+    color: #b64d4d;
+}
+
+.add-btn {
+    position: absolute;
+    z-index: 4;
+    bottom: 12px;
+    left: 12px;
+    right: 12px;
+    height: 46px;
+    border: 0;
+    background: white;
+    color: var(--black);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    transform: translateY(70px);
+    opacity: 0;
+    transition: .35s;
+}
+
+.product:hover .add-btn {
+    transform: translateY(0);
+    opacity: 1;
+}
+
+.product-info {
+    padding: 16px 3px;
+}
+
+.product-category {
+    font-size: 9px;
+    letter-spacing: 1.5px;
+    color: var(--muted);
+    text-transform: uppercase;
+}
+
+.product-name {
+    font-size: 14px;
+    font-weight: 600;
+    margin: 7px 0;
+}
+
+.price {
+    font-size: 13px;
+    font-weight: 700;
+}
+
+.old-price {
+    color: #999;
+    text-decoration: line-through;
+    margin-left: 6px;
+    font-weight: 400;
+}
+
+.colors {
+    display: flex;
+    gap: 5px;
+    margin-top: 10px;
+}
+
+.color {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    border: 1px solid #ddd;
+}
+
+/* =========================
+   PROMO
+========================= */
+.promo {
+    max-width: 1400px;
+    margin: auto;
+    padding: 0 30px 100px;
+}
+
+.promo-box {
+    min-height: 470px;
+    border-radius: 20px;
+    overflow: hidden;
+    position: relative;
+    background:
+        linear-gradient(90deg,rgba(0,0,0,.72),rgba(0,0,0,.12)),
+        url("https://images.unsplash.com/photo-1496747611176-843222e1e57c?auto=format&fit=crop&w=1800&q=85")
+        center/cover;
+    display: flex;
+    align-items: center;
+    color: white;
+}
+
+.promo-content {
+    padding: 50px 70px;
+    max-width: 620px;
+}
+
+.promo-content small {
+    letter-spacing: 3px;
+    text-transform: uppercase;
+}
+
+.promo-content h2 {
+    font-family: var(--serif);
+    font-size: clamp(42px,6vw,72px);
+    line-height: 1;
+    margin: 18px 0;
+}
+
+.promo-content p {
+    color: #ddd;
+    line-height: 1.7;
+    margin-bottom: 28px;
+}
+
+/* =========================
+   LOOKBOOK
+========================= */
+.lookbook {
+    background: var(--cream);
+}
+
+.lookbook-inner {
+    max-width: 1400px;
+    margin: auto;
+    padding: 100px 30px;
+}
+
+.lookbook-grid {
+    display: grid;
+    grid-template-columns: 1fr 1.3fr 1fr;
+    gap: 15px;
+    align-items: center;
+}
+
+.look-img {
+    overflow: hidden;
+    border-radius: 15px;
+}
+
+.look-img img {
+    display: block;
+    width: 100%;
+    transition: .6s;
+}
+
+.look-img:hover img {
+    transform: scale(1.04);
+}
+
+.look-center {
+    text-align: center;
+    padding: 40px;
+}
+
+.look-center h2 {
+    font-family: var(--serif);
+    font-size: 54px;
+    line-height: 1;
+    margin: 15px 0;
+}
+
+.look-center p {
+    color: var(--muted);
+    font-size: 13px;
+    line-height: 1.7;
+    margin-bottom: 25px;
+}
+
+/* =========================
+   NEWSLETTER
+========================= */
+.newsletter {
+    background: var(--black);
+    color: white;
+}
+
+.newsletter-inner {
+    max-width: 900px;
+    margin: auto;
+    text-align: center;
+    padding: 90px 30px;
+}
+
+.newsletter h2 {
+    font-family: var(--serif);
+    font-size: 52px;
+    font-weight: 500;
+}
+
+.newsletter p {
+    color: #aaa;
+    margin: 15px auto 30px;
+    max-width: 500px;
+    line-height: 1.6;
+    font-size: 13px;
+}
+
+.newsletter-form {
+    max-width: 500px;
+    margin: auto;
+    display: flex;
+    border-bottom: 1px solid #777;
+}
+
+.newsletter-form input {
+    flex: 1;
+    padding: 15px 0;
+    border: 0;
+    outline: 0;
+    background: transparent;
+    color: white;
+}
+
+.newsletter-form button {
+    background: transparent;
+    color: white;
+    border: 0;
+    font-weight: 700;
+    font-size: 11px;
+    letter-spacing: 1px;
+}
+
+/* =========================
+   FOOTER
+========================= */
+footer {
+    background: #111;
+    color: white;
+    border-top: 1px solid #333;
+}
+
+.footer-inner {
+    max-width: 1400px;
+    margin: auto;
+    padding: 70px 30px 30px;
+}
+
+.footer-grid {
+    display: grid;
+    grid-template-columns: 2fr repeat(3,1fr);
+    gap: 50px;
+}
+
+.footer-brand p {
+    color: #888;
+    line-height: 1.7;
+    font-size: 12px;
+    max-width: 300px;
+    margin-top: 15px;
+}
+
+.footer h4 {
+    font-size: 11px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+}
+
+.footer ul {
+    list-style: none;
+}
+
+.footer li {
+    color: #888;
+    font-size: 12px;
+    margin-bottom: 12px;
+    transition: .2s;
+}
+
+.footer li:hover {
+    color: white;
+}
+
+.footer-bottom {
+    margin-top: 60px;
+    padding-top: 20px;
+    border-top: 1px solid #333;
+    color: #666;
+    font-size: 10px;
+    display: flex;
+    justify-content: space-between;
+}
+
+/* =========================
+   CART DRAWER
+========================= */
+.overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,.45);
+    z-index: 1999;
+    opacity: 0;
+    visibility: hidden;
+    transition: .3s;
+}
+
+.overlay.show {
+    opacity: 1;
+    visibility: visible;
+}
+
+.cart {
+    position: fixed;
+    z-index: 2000;
+    right: 0;
+    top: 0;
+    height: 100%;
+    width: min(440px,100%);
+    background: white;
+    transform: translateX(100%);
+    transition: .45s cubic-bezier(.2,.8,.2,1);
+    display: flex;
+    flex-direction: column;
+}
+
+.cart.open {
+    transform: translateX(0);
+}
+
+.cart-head {
+    height: 75px;
+    padding: 0 25px;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.cart-head h3 {
+    font-family: var(--serif);
+    font-size: 25px;
+}
+
+.close {
+    border: 0;
+    background: transparent;
+    font-size: 25px;
+}
+
+.cart-items {
+    flex: 1;
+    overflow-y: auto;
+    padding: 20px;
+}
+
+.empty-cart {
+    text-align: center;
+    color: var(--muted);
+    padding: 80px 20px;
+    font-size: 13px;
+}
+
+.cart-item {
+    display: grid;
+    grid-template-columns: 75px 1fr auto;
+    gap: 13px;
+    margin-bottom: 18px;
+}
+
+.cart-item img {
+    width: 75px;
+    height: 90px;
+    object-fit: cover;
+    border-radius: 8px;
+}
+
+.cart-item h4 {
+    font-size: 13px;
+    margin-bottom: 5px;
+}
+
+.cart-item p {
+    font-size: 12px;
+    color: var(--muted);
+}
+
+.remove {
+    border: 0;
+    background: none;
+    color: #999;
+    font-size: 11px;
+}
+
+.cart-foot {
+    padding: 22px;
+    border-top: 1px solid var(--border);
+}
+
+.subtotal {
+    display: flex;
+    justify-content: space-between;
+    font-weight: 700;
+    margin-bottom: 15px;
+}
+
+.checkout {
+    width: 100%;
+    background: var(--black);
+    color: white;
+    border: 0;
+    padding: 17px;
+    font-size: 11px;
+    letter-spacing: 1px;
+    font-weight: 700;
+}
+
+/* =========================
+   TOAST
+========================= */
+.toast {
+    position: fixed;
+    z-index: 3000;
+    bottom: 25px;
+    left: 50%;
+    transform: translate(-50%, 100px);
+    background: var(--black);
+    color: white;
+    padding: 14px 22px;
+    border-radius: 30px;
+    font-size: 12px;
+    opacity: 0;
+    transition: .4s;
+}
+
+.toast.show {
+    transform: translate(-50%,0);
+    opacity: 1;
+}
+
+/* =========================
+   REVEAL
+========================= */
+.reveal {
+    opacity: 0;
+    transform: translateY(35px);
+    transition: opacity .8s, transform .8s;
+}
+
+.reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+@media(max-width: 1000px) {
+    .nav-links {
+        display: none;
+    }
+
+    .menu-btn {
+        display: grid;
+    }
+
+    .products {
+        grid-template-columns: repeat(3,1fr);
+    }
+
+    .categories {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .category:first-child {
+        grid-column: span 2;
+    }
+
+    .features-inner {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .feature:nth-child(2) {
+        border-right: 0;
+    }
+
+    .feature:nth-child(-n+2) {
+        border-bottom: 1px solid var(--border);
+    }
+
+    .lookbook-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .look-center {
+        grid-column: span 2;
+        grid-row: 1;
+    }
+
+    .footer-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+@media(max-width: 650px) {
+    .announcement {
+        font-size: 9px;
+    }
+
+    .navbar {
+        padding: 0 18px;
+        height: 65px;
+    }
+
+    .logo {
+        font-size: 21px;
+        letter-spacing: 3px;
+    }
+
+    .hero {
+        min-height: 650px;
+    }
+
+    .hero-content {
+        padding: 60px 22px;
+    }
+
+    .hero h1 {
+        font-size: 58px;
+    }
+
+    .hero p {
+        font-size: 14px;
+    }
+
+    .hero-buttons {
+        flex-direction: column;
+        width: max-content;
+    }
+
+    .section {
+        padding: 70px 18px;
+    }
+
+    .section-head {
+        display: block;
+    }
+
+    .section-link {
+        display: inline-block;
+        margin-top: 15px;
+    }
+
+    .categories {
+        grid-template-columns: 1fr;
+    }
+
+    .category:first-child {
+        grid-column: auto;
+    }
+
+    .category {
+        height: 420px;
+    }
+
+    .products {
+        grid-template-columns: repeat(2,1fr);
+        gap: 12px;
+    }
+
+    .product-image {
+        border-radius: 9px;
+    }
+
+    .product-info {
+        padding: 12px 2px;
+    }
+
+    .product-name {
+        font-size: 12px;
+    }
+
+    .add-btn {
+        display: none;
+    }
+
+    .shop-tools {
+        display: block;
+    }
+
+    .sort {
+        margin-top: 12px;
+    }
+
+    .promo {
+        padding: 0 18px 70px;
+    }
+
+    .promo-box {
+        min-height: 550px;
+    }
+
+    .promo-content {
+        padding: 30px;
+    }
+
+    .lookbook-inner {
+        padding: 70px 18px;
+    }
+
+    .lookbook-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .look-center {
+        grid-column: span 2;
+    }
+
+    .look-center h2 {
+        font-size: 42px;
+    }
+
+    .newsletter h2 {
+        font-size: 40px;
+    }
+
+    .footer-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 35px 20px;
+    }
+
+    .footer-brand {
+        grid-column: span 2;
+    }
+
+    .footer-bottom {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .features-inner {
+        grid-template-columns: 1fr;
+    }
+
+    .feature {
+        border-right: 0 !important;
+        border-bottom: 1px solid var(--border);
+    }
+
+    .feature:last-child {
+        border-bottom: 0;
+    }
+}
+</style>
 </head>
 
 <body>
 
-    <div class="chip">⚡</div>
-
-    <div class="box">
-        <h1>🔌 Electronics</h1>
-        <p>
-            Electronics is the branch of engineering that deals with
-            circuits, semiconductors, microchips and electronic devices.
-        </p>
-        <h2>Components</h2>
-        <p>🔋 Resistors | 💡 LEDs | ⚙️ Transistors | 🧠 Microchips</p>
+<!-- LOADER -->
+<div class="loader" id="loader">
+    <div class="loader-inner">
+        <div class="loader-logo">VÉRONA</div>
+        <div class="loader-line"></div>
+        <small>MODERN ESSENTIALS</small>
     </div>
+</div>
+
+<!-- ANNOUNCEMENT -->
+<div class="announcement">
+    Complimentary shipping on orders over ₹2,999
+</div>
+
+<!-- NAVIGATION -->
+<header>
+    <nav class="navbar">
+        <button class="icon-btn menu-btn" aria-label="Menu" onclick="toggleMobileMenu()">
+            ☰
+        </button>
+
+        <a href="#" class="logo">VÉRONA</a>
+
+        <ul class="nav-links" id="navLinks">
+            <li><a href="#new">New In</a></li>
+            <li><a href="#women">Women</a></li>
+            <li><a href="#men">Men</a></li>
+            <li><a href="#collections">Collections</a></li>
+            <li><a href="#sale">Sale</a></li>
+        </ul>
+
+        <div class="nav-actions">
+            <button class="icon-btn" aria-label="Search" onclick="focusSearch()">
+                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <circle cx="11" cy="11" r="7"></circle>
+                    <path d="m20 20-4-4"></path>
+                </svg>
+            </button>
+
+            <button class="icon-btn" aria-label="Wishlist">
+                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path d="M20.8 8.8c0 5.2-8.8 10.2-8.8 10.2S3.2 14 3.2 8.8A4.7 4.7 0 0 1 12 6.3a4.7 4.7 0 0 1 8.8 2.5Z"></path>
+                </svg>
+            </button>
+
+            <button class="icon-btn" aria-label="Cart" onclick="openCart()">
+                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path d="M6 7h12l1 13H5L6 7Z"></path>
+                    <path d="M9 7a3 3 0 0 1 6 0"></path>
+                </svg>
+                <span class="cart-count" id="cartCount">0</span>
+            </button>
+        </div>
+    </nav>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+    <div class="hero-bg"></div>
+
+    <div class="hero-content">
+        <div class="hero-eyebrow">Autumn / Winter 2026</div>
+
+        <h1>Dress<br>your story.</h1>
+
+        <p>
+            Elevated essentials designed for everyday moments.
+            Discover timeless silhouettes, premium textures and
+            effortless style.
+        </p>
+
+        <div class="hero-buttons">
+            <a href="#new" class="btn btn-dark">Shop New Arrivals</a>
+            <a href="#collections" class="btn btn-outline">Explore Collection</a>
+        </div>
+    </div>
+</section>
+
+<!-- FEATURES -->
+<section class="features">
+    <div class="features-inner">
+
+        <div class="feature">
+            <div class="feature-icon">✦</div>
+            <div>
+                <strong>Premium Quality</strong>
+                <span>Made to last</span>
+            </div>
+        </div>
+
+        <div class="feature">
+            <div class="feature-icon">↗</div>
+            <div>
+                <strong>Free Shipping</strong>
+                <span>On orders ₹2,999+</span>
+            </div>
+        </div>
+
+        <div class="feature">
+            <div class="feature-icon">↻</div>
+            <div>
+                <strong>Easy Returns</strong>
+                <span>14 day returns</span>
+            </div>
+        </div>
+
+        <div class="feature">
+            <div class="feature-icon">♡</div>
+            <div>
+                <strong>Consciously Made</strong>
+                <span>Better materials</span>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+<!-- CATEGORIES -->
+<section class="section reveal" id="collections">
+
+    <div class="section-head">
+        <div>
+            <div class="section-kicker">Shop by mood</div>
+            <h2 class="section-title">Find your fit.</h2>
+        </div>
+
+        <a href="#new" class="section-link">View all collections →</a>
+    </div>
+
+    <div class="categories">
+
+        <div class="category">
+            <img src="https://images.unsplash.com/photo-1485230895905-ec40ba36b9bc?auto=format&fit=crop&w=1000&q=85" alt="Women's fashion">
+            <div class="category-info">
+                <h3>Women</h3>
+                <a href="#new">Shop women →</a>
+            </div>
+        </div>
+
+        <div class="category">
+            <img src="https://images.unsplash.com/photo-1617127365659-c47fa864d8bc?auto=format&fit=crop&w=900&q=85" alt="Men's fashion">
+            <div class="category-info">
+                <h3>Men</h3>
+                <a href="#new">Shop men →</a>
+            </div>
+        </div>
+
+        <div class="category">
+            <img src="https://images.unsplash.com/photo-1525507119028-ed4c629a60a3?auto=format&fit=crop&w=900&q=85" alt="Accessories">
+            <div class="category-info">
+                <h3>Objects</h3>
+                <a href="#new">Explore →</a>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+<!-- PRODUCTS -->
+<section class="section reveal" id="new">
+
+    <div class="section-head">
+        <div>
+            <div class="section-kicker">The edit</div>
+            <h2 class="section-title">New arrivals.</h2>
+        </div>
+
+        <a href="#" class="section-link">Shop everything →</a>
+    </div>
+
+    <div class="shop-tools">
+
+        <div class="filters">
+            <button class="filter-btn active" data-filter="all">All</button>
+            <button class="filter-btn" data-filter="women">Women</button>
+            <button class="filter-btn" data-filter="men">Men</button>
+            <button class="filter-btn" data-filter="accessories">Accessories</button>
+        </div>
+
+        <select class="sort" id="sortSelect">
+            <option value="featured">Sort: Featured</option>
+            <option value="low">Price: Low to High</option>
+            <option value="high">Price: High to Low</option>
+        </select>
+
+    </div>
+
+    <div class="products" id="products">
+
+        <!-- PRODUCT 1 -->
+        <article class="product" data-category="women" data-price="5490">
+            <div class="product-image">
+                <span class="badge">NEW</span>
+
+                <button class="wish" onclick="toggleWish(this)">♡</button>
+
+                <img class="main-img"
+                     src="https://images.unsplash.com/photo-1539008835657-9e8e9680c956?auto=format&fit=crop&w=800&q=85"
+                     alt="Satin slip dress">
+
+                <img class="hover-img"
+                     src="https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=800&q=85"
+                     alt="Satin slip dress">
+
+                <button class="add-btn"
+                        onclick="addToCart('Silk Touch Slip Dress',5490,'https://images.unsplash.com/photo-1539008835657-9e8e9680c956?auto=format&fit=crop&w=400&q=80')">
+                    ADD TO BAG
+                </button>
+            </div>
+
+            <div class="product-info">
+                <div class="product-category">Women · Dresses</div>
+                <div class="product-name">Silk Touch Slip Dress</div>
+                <div class="price">₹5,490</div>
+                <div class="colors">
+                    <span class="color" style="background:#1c1c1c"></span>
+                    <span class="color" style="background:#d8c4b4"></span>
+                    <span class="color" style="background:#87927d"></span>
+                </div>
+            </div>
+        </article>
+
+        <!-- PRODUCT 2 -->
+        <article class="product" data-category="men" data-price="4290">
+            <div class="product-image">
+                <span class="badge">BESTSELLER</span>
+
+                <button class="wish" onclick="toggleWish(this)">♡</button>
+
+                <img class="main-img"
+                     src="https://images.unsplash.com/photo-1594938298603-c8148c4dae35?auto=format&fit=crop&w=800&q=85"
+                     alt="Oversized shirt">
+
+                <img class="hover-img"
+                     src="https://images.unsplash.com/photo-1603252110481-7ba873bf42ab?auto=format&fit=crop&w=800&q=85"
+                     alt="Oversized shirt">
+
+                <button class="add-btn"
+                        onclick="addToCart('Relaxed Oxford Shirt',4290,'https://images.unsplash.com/photo-1594938298603-c8148c4dae35?auto=format&fit=crop&w=400&q=80')">
+                    ADD TO BAG
+                </button>
+            </div>
+
+            <div class="product-info">
+                <div class="product-category">Men · Shirts</div>
+                <div class="product-name">Relaxed Oxford Shirt</div>
+                <div class="price">₹4,290</div>
+                <div class="colors">
+                    <span class="color" style="background:#e7e2d8"></span>
+                    <span class="color" style="background:#8091a0"></span>
+                    <span class="color" style="background:#222"></span>
+                </div>
+            </div>
+        </article>
+
+        <!-- PRODUCT 3 -->
+        <article class="product" data-category="women" data-price="6890">
+            <div class="product-image">
+                <span class="badge">NEW</span>
+
+                <button class="wish" onclick="toggleWish(this)">♡</button>
+
+                <img class="main-img"
+                     src="https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?auto=format&fit=crop&w=800&q=85"
+                     alt="Tailored blazer">
+
+                <img class="hover-img"
+                     src="https://images.unsplash.com/photo-1551488831-00ddcb6c6bd3?auto=format&fit=crop&w=800&q=85"
+                     alt="Tailored blazer">
+
+                <button class="add-btn"
+                        onclick="addToCart('Sculpted Tailored Blazer',6890,'https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?auto=format&fit=crop&w=400&q=80')">
+                    ADD TO BAG
+                </button>
+            </div>
+
+            <div class="product-info">
+                <div class="product-category">Women · Tailoring</div>
+                <div class="product-name">Sculpted Tailored Blazer</div>
+                <div class="price">₹6,890</div>
+                <div class="colors">
+                    <span class="color" style="background:#222"></span>
+                    <span class="color" style="background:#b9aa96"></span>
+                </div>
+            </div>
+        </article>
+
+        <!-- PRODUCT 4 -->
+        <article class="product" data-category="accessories" data-price="2490">
+            <div class="product-image">
+
+                <button class="wish" onclick="toggleWish(this)">♡</button>
+
+                <img class="main-img"
+                     src="https://images.unsplash.com/photo-1553062407-98eeb64c6a62?auto=format&fit=crop&w=800&q=85"
+                     alt="Leather handbag">
+
+                <img class="hover-img"
+                     src="https://images.unsplash.com/photo-1584917865442-de89df76afd3?auto=format&fit=crop&w=800&q=85"
+                     alt="Leather handbag">
+
+                <button class="add-btn"
+                        onclick="addToCart('Soft Leather Shoulder Bag',2490,'https://images.unsplash.com/photo-1553062407-98eeb64c6a62?auto=format&fit=crop&w=400&q=80')">
+                    ADD TO BAG
+                </button>
+            </div>
+
+            <div class="product-info">
+                <div class="product-category">Accessories · Bags</div>
+                <div class="product-name">Soft Leather Shoulder Bag</div>
+                <div class="price">₹2,490</div>
+                <div class="colors">
+                    <span class="color" style="background:#604838"></span>
+                    <span class="color" style="background:#151515"></span>
+                    <span class="color" style="background:#d3bba4"></span>
+                </div>
+            </div>
+        </article>
+
+        <!-- PRODUCT 5 -->
+        <article class="product" data-category="men" data-price="5290">
+            <div class="product-image">
+
+                <button class="wish" onclick="toggleWish(this)">♡</button>
+
+                <img class="main-img"
+                     src="https://images.unsplash.com/photo-1610652492500-ded49ceeb378?auto=format&fit=crop&w=800&q=85"
+                     alt="Wool coat">
+
+                <img class="hover-img"
+                     src="https://images.unsplash.com/photo-1548883354-94bcfe321cbb?auto=format&fit=crop&w=800&q=85"
+                     alt="Wool coat">
+
+                <button class="add-btn"
+                        onclick="addToCart('Double Face Wool Coat',5290,'https://images.unsplash.com/photo-1610652492500-ded49ceeb378?auto=format&fit=crop&w=400&q=80')">
+                    ADD TO BAG
+                </button>
+            </div>
+
+            <div class="product-info">
+                <div class="product-category">Men · Outerwear</div>
+                <div class="product-name">Double Face Wool Coat</div>
+                <div class="price">₹5,290</div>
+                <div class="colors">
+                    <span class="color" style="background:#3e3a34"></span>
+                    <span class="color" style="background:#a7957c"></span>
+                </div>
+            </div>
+        </article>
+
+        <!-- PRODUCT 6 -->
+        <article class="product" data-category="women" data-price="3890">
+            <div class="product-image">
+                <span class="badge">-20%</span>
+
+                <button class="wish" onclick="toggleWish(this)">♡</button>
+
+                <img class="main-img"
+                     src="https://images.unsplash.com/photo-1571513800374-df1bbe650e56?auto=format&fit=crop&w=800&q=85"
+                     alt="Knit sweater">
+
+                <img class="hover-img"
+                     src="https://images.unsplash.com/photo-1583743814966-8936f37f4678?auto=format&fit=crop&w=800&q=85"
+                     alt="Knit sweater">
+
+                <button class="add-btn"
+                        onclick="addToCart('Cloud Knit Sweater',3890,'https://images.unsplash.com/photo-1571513800374-df1bbe650e56?auto=format&fit=crop&w=400&q=80')">
+                    ADD TO BAG
+                </button>
+            </div>
+
+            <div class="product-info">
+                <div class="product-category">Women · Knitwear</div>
+                <div class="product-name">Cloud Knit Sweater</div>
+                <div class="price">
+                    ₹3,890
+                    <span class="old-price">₹4,890</span>
+                </div>
+                <div class="colors">
+                    <span class="color" style="background:#ddd4c9"></span>
+                    <span class="color" style="background:#7c8581"></span>
+                    <span class="color" style="background:#9c7264"></span>
+                </div>
+            </div>
+        </article>
+
+        <!-- PRODUCT 7 -->
+        <article class="product" data-category="men" data-price="3290">
+            <div class="product-image">
+
+                <button class="wish" onclick="toggleWish(this)">♡</button>
+
+                <img class="main-img"
+                     src="https://images.unsplash.com/photo-1551488831-00ddcb6c6bd3?auto=format&fit=crop&w=800&q=85"
+                     alt="Minimal trousers">
+
+                <img class="hover-img"
+                     src="https://images.unsplash.com/photo-1473966968600-fa801b869a1a?auto=format&fit=crop&w=800&q=85"
+                     alt="Minimal trousers">
+
+                <button class="add-btn"
+                        onclick="addToCart('Straight Leg Trousers',3290,'https://images.unsplash.com/photo-1551488831-00ddcb6c6bd3?auto=format&fit=crop&w=400&q=80')">
+                    ADD TO BAG
+                </button>
+            </div>
+
+            <div class="product-info">
+                <div class="product-category">Men · Trousers</div>
+                <div class="product-name">Straight Leg Trousers</div>
+                <div class="price">₹3,290</div>
+                <div class="colors">
+                    <span class="color" style="background:#222"></span>
+                    <span class="color" style="background:#a8a095"></span>
+                </div>
+            </div>
+        </article>
+
+        <!-- PRODUCT 8 -->
+        <article class="product" data-category="accessories" data-price="1790">
+            <div class="product-image">
+                <span class="badge">NEW</span>
+
+                <button class="wish" onclick="toggleWish(this)">♡</button>
+
+                <img class="main-img"
+                     src="https://images.unsplash.com/photo-1523779917675-b6ed3a42a561?auto=format&fit=crop&w=800&q=85"
+                     alt="Sunglasses">
+
+                <img class="hover-img"
+                     src="https://images.unsplash.com/photo-1511499767150-a48a237f0083?auto=format&fit=crop&w=800&q=85"
+                     alt="Sunglasses">
+
+                <button class="add-btn"
+                        onclick="addToCart('Classic Frame Sunglasses',1790,'https://images.unsplash.com/photo-1523779917675-b6ed3a42a561?auto=format&fit=crop&w=400&q=80')">
+                    ADD TO BAG
+                </button>
+            </div>
+
+            <div class="product-info">
+                <div class="product-category">Accessories · Eyewear</div>
+                <div class="product-name">Classic Frame Sunglasses</div>
+                <div class="price">₹1,790</div>
+                <div class="colors">
+                    <span class="color" style="background:#222"></span>
+                    <span class="color" style="background:#c6a276"></span>
+                </div>
+            </div>
+        </article>
+
+    </div>
+</section>
+
+<!-- PROMOTION -->
+<section class="promo reveal" id="sale">
+    <div class="promo-box">
+        <div class="promo-content">
+            <small>Limited collection</small>
+            <h2>The art of layering.</h2>
+            <p>
+                Soft textures, structured silhouettes and earthy tones.
+                Build your perfect transitional wardrobe with our latest edit.
+            </p>
+            <a href="#new" class="btn btn-dark">Shop the edit</a>
+        </div>
+    </div>
+</section>
+
+<!-- LOOKBOOK -->
+<section class="lookbook reveal">
+    <div class="lookbook-inner">
+
+        <div class="lookbook-grid">
+
+            <div class="look-img">
+                <img src="https://images.unsplash.com/photo-1539109136881-3be0616acf4b?auto=format&fit=crop&w=800&q=85" alt="Lookbook style">
+            </div>
+
+            <div class="look-center">
+                <div class="section-kicker">Verona Journal</div>
+                <h2>Less, but<br>better.</h2>
+                <p>
+                    A wardrobe doesn't need to be complicated.
+                    Discover pieces that work harder, feel better
+                    and stay with you longer.
+                </p>
+                <a href="#new" class="btn" style="background:#111;color:white;">
+                    Discover the journal
+                </a>
+            </div>
+
+            <div class="look-img">
+                <img src="https://images.unsplash.com/photo-1485968579580-b6d095142e6e?auto=format&fit=crop&w=800&q=85" alt="Fashion lookbook">
+            </div>
+
+        </div>
+
+    </div>
+</section>
+
+<!-- NEWSLETTER -->
+<section class="newsletter">
+    <div class="newsletter-inner">
+
+        <div class="section-kicker" style="color:#c89b7d;">
+            Stay in the know
+        </div>
+
+        <h2>Join the Verona world.</h2>
+
+        <p>
+            New arrivals, private events, styling inspiration and
+            10% off your first order — delivered occasionally.
+        </p>
+
+        <form class="newsletter-form" onsubmit="subscribe(event)">
+            <input id="email" type="email" placeholder="Your email address" required>
+            <button type="submit">SUBSCRIBE →</button>
+        </form>
+
+    </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+    <div class="footer-inner">
+
+        <div class="footer-grid">
+
+            <div class="footer-brand">
+                <div class="logo">VÉRONA</div>
+                <p>
+                    Modern clothing for modern living.
+                    Designed with intention in India,
+                    made for everywhere.
+                </p>
+            </div>
+
+            <div>
+                <h4>Shop</h4>
+                <ul>
+                    <li><a href="#new">New Arrivals</a></li>
+                    <li><a href="#women">Women</a></li>
+                    <li><a href="#men">Men</a></li>
+                    <li><a href="#sale">Sale</a></li>
+                </ul>
+            </div>
+
+            <div>
+                <h4>Help</h4>
+                <ul>
+                    <li>Contact Us</li>
+                    <li>Shipping & Delivery</li>
+                    <li>Returns</li>
+                    <li>Size Guide</li>
+                </ul>
+            </div>
+
+            <div>
+                <h4>About</h4>
+                <ul>
+                    <li>Our Story</li>
+                    <li>Sustainability</li>
+                    <li>Journal</li>
+                    <li>Careers</li>
+                </ul>
+            </div>
+
+        </div>
+
+        <div class="footer-bottom">
+            <span>© 2026 VÉRONA. All rights reserved.</span>
+            <span>Instagram &nbsp; · &nbsp; Pinterest &nbsp; · &nbsp; Facebook</span>
+        </div>
+
+    </div>
+</footer>
+
+<!-- CART OVERLAY -->
+<div class="overlay" id="overlay" onclick="closeCart()"></div>
+
+<!-- CART -->
+<aside class="cart" id="cart">
+
+    <div class="cart-head">
+        <h3>Your bag</h3>
+        <button class="close" onclick="closeCart()">×</button>
+    </div>
+
+    <div class="cart-items" id="cartItems">
+        <div class="empty-cart">
+            Your bag is currently empty.<br><br>
+            Discover something you love.
+        </div>
+    </div>
+
+    <div class="cart-foot">
+        <div class="subtotal">
+            <span>Subtotal</span>
+            <span id="subtotal">₹0</span>
+        </div>
+
+        <button class="checkout" onclick="checkout()">
+            PROCEED TO CHECKOUT
+        </button>
+    </div>
+
+</aside>
+
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
+
+<script>
+/* =========================
+   LOADER
+========================= */
+window.addEventListener("load", () => {
+    setTimeout(() => {
+        document.getElementById("loader").classList.add("hide");
+    }, 800);
+});
+
+/* =========================
+   CART
+========================= */
+let cart = [];
+
+function addToCart(name, price, image) {
+
+    const existing = cart.find(item => item.name === name);
+
+    if (existing) {
+        existing.qty++;
+    } else {
+        cart.push({
+            name,
+            price,
+            image,
+            qty: 1
+        });
+    }
+
+    updateCart();
+    showToast(`${name} added to your bag`);
+}
+
+function updateCart() {
+
+    const container = document.getElementById("cartItems");
+    const count = document.getElementById("cartCount");
+    const subtotal = document.getElementById("subtotal");
+
+    const totalItems = cart.reduce((sum, item) => sum + item.qty, 0);
+
+    count.textContent = totalItems;
+
+    if (cart.length === 0) {
+        container.innerHTML = `
+            <div class="empty-cart">
+                Your bag is currently empty.<br><br>
+                Discover something you love.
+            </div>
+        `;
+        subtotal.textContent = "₹0";
+        return;
+    }
+
+    container.innerHTML = cart.map((item, index) => `
+        <div class="cart-item">
+            <img src="${item.image}" alt="${item.name}">
+
+            <div>
+                <h4>${item.name}</h4>
+                <p>₹${item.price.toLocaleString("en-IN")}</p>
+                <p>Qty: ${item.qty}</p>
+            </div>
+
+            <button class="remove" onclick="removeCartItem(${index})">
+                REMOVE
+            </button>
+        </div>
+    `).join("");
+
+    const total = cart.reduce(
+        (sum, item) => sum + item.price * item.qty,
+        0
+    );
+
+    subtotal.textContent = `₹${total.toLocaleString("en-IN")}`;
+}
+
+function removeCartItem(index) {
+    cart.splice(index, 1);
+    updateCart();
+    showToast("Item removed");
+}
+
+function openCart() {
+    document.getElementById("cart").classList.add("open");
+    document.getElementById("overlay").classList.add("show");
+    document.body.style.overflow = "hidden";
+}
+
+function closeCart() {
+    document.getElementById("cart").classList.remove("open");
+    document.getElementById("overlay").classList.remove("show");
+    document.body.style.overflow = "";
+}
+
+function checkout() {
+
+    if (cart.length === 0) {
+        showToast("Your bag is empty");
+        return;
+    }
+
+    showToast("Checkout demo — connect your payment system here");
+}
+
+/* =========================
+   WISHLIST
+========================= */
+function toggleWish(button) {
+    button.classList.toggle("active");
+
+    if (button.classList.contains("active")) {
+        button.textContent = "♥";
+        showToast("Added to wishlist");
+    } else {
+        button.textContent = "♡";
+        showToast("Removed from wishlist");
+    }
+}
+
+/* =========================
+   TOAST
+========================= */
+let toastTimeout;
+
+function showToast(message) {
+
+    const toast = document.getElementById("toast");
+
+    toast.textContent = message;
+    toast.classList.add("show");
+
+    clearTimeout(toastTimeout);
+
+    toastTimeout = setTimeout(() => {
+        toast.classList.remove("show");
+    }, 2400);
+}
+
+/* =========================
+   FILTERS
+========================= */
+const filterButtons = document.querySelectorAll(".filter-btn");
+const productCards = document.querySelectorAll(".product");
+
+filterButtons.forEach(button => {
+
+    button.addEventListener("click", () => {
+
+        filterButtons.forEach(btn => btn.classList.remove("active"));
+        button.classList.add("active");
+
+        const filter = button.dataset.filter;
+
+        productCards.forEach(product => {
+
+            if (
+                filter === "all" ||
+                product.dataset.category === filter
+            ) {
+                product.style.display = "";
+                setTimeout(() => {
+                    product.style.opacity = "1";
+                    product.style.transform = "translateY(0)";
+                }, 10);
+            } else {
+                product.style.opacity = "0";
+                product.style.transform = "translateY(15px)";
+
+                setTimeout(() => {
+                    product.style.display = "none";
+                }, 250);
+            }
+        });
+    });
+});
+
+/* =========================
+   SORT
+========================= */
+document.getElementById("sortSelect").addEventListener("change", function() {
+
+    const container = document.getElementById("products");
+
+    const products = [...container.querySelectorAll(".product")];
+
+    if (this.value === "low") {
+        products.sort((a,b) =>
+            Number(a.dataset.price) - Number(b.dataset.price)
+        );
+    }
+
+    if (this.value === "high") {
+        products.sort((a,b) =>
+            Number(b.dataset.price) - Number(a.dataset.price)
+        );
+    }
+
+    if (this.value === "featured") {
+        products.sort((a,b) =>
+            [...container.children].indexOf(a) -
+            [...container.children].indexOf(b)
+        );
+    }
+
+    products.forEach(product => container.appendChild(product));
+});
+
+/* =========================
+   SEARCH
+========================= */
+function focusSearch() {
+
+    const term = prompt("What are you looking for?");
+
+    if (!term) return;
+
+    const searchTerm = term.toLowerCase();
+
+    let found = false;
+
+    productCards.forEach(product => {
+
+        const name = product
+            .querySelector(".product-name")
+            .textContent
+            .toLowerCase();
+
+        if (name.includes(searchTerm)) {
+            product.style.display = "";
+            found = true;
+        } else {
+            product.style.display = "none";
+        }
+    });
+
+    document.getElementById("new").scrollIntoView({
+        behavior: "smooth"
+    });
+
+    showToast(
+        found
+            ? `Showing results for "${term}"`
+            : `No products found for "${term}"`
+    );
+}
+
+/* =========================
+   NEWSLETTER
+========================= */
+function subscribe(event) {
+
+    event.preventDefault();
+
+    const email = document.getElementById("email");
+
+    showToast("Welcome to the Verona world ✦");
+
+    email.value = "";
+}
+
+/* =========================
+   MOBILE MENU
+========================= */
+function toggleMobileMenu() {
+
+    const nav = document.getElementById("navLinks");
+
+    if (nav.style.display === "flex") {
+        nav.style.display = "";
+        return;
+    }
+
+    nav.style.position = "absolute";
+    nav.style.top = "65px";
+    nav.style.left = "0";
+    nav.style.right = "0";
+    nav.style.background = "white";
+    nav.style.padding = "25px";
+    nav.style.flexDirection = "column";
+    nav.style.gap = "20px";
+    nav.style.display = "flex";
+    nav.style.boxShadow = "0 15px 30px rgba(0,0,0,.08)";
+}
+
+/* =========================
+   SCROLL REVEAL
+========================= */
+const observer = new IntersectionObserver(
+    entries => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add("visible");
+            }
+        });
+    },
+    {
+        threshold: .12
+    }
+);
+
+document.querySelectorAll(".reveal").forEach(element => {
+    observer.observe(element);
+});
+
+/* =========================
+   ESCAPE CLOSE CART
+========================= */
+document.addEventListener("keydown", event => {
+    if (event.key === "Escape") {
+        closeCart();
+    }
+});
+</script>
 
 </body>
 </html>
